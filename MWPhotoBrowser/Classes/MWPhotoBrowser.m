@@ -11,6 +11,7 @@
 #import "MWZoomingScrollView.h"
 #import "MBProgressHUD.h"
 #import "SDImageCache.h"
+#import "PPUtility.h"
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
@@ -222,7 +223,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-	
+    
 	// View
 	self.view.backgroundColor = [UIColor blackColor];
 	
@@ -454,6 +455,8 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 	
 	// Flag
 	_performingLayout = YES;
+    
+    _pagingScrollView.bounds = CGRectMake(_pagingScrollView.origin.x, 0, _pagingScrollView.bounds.size.width, _pagingScrollView.bounds.size.height);
 	
 	// Toolbar
 	_toolbar.frame = [self frameForToolbarAtOrientation:self.interfaceOrientation];
@@ -791,6 +794,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     CGRect pageFrame = bounds;
     pageFrame.size.width -= (2 * PADDING);
     pageFrame.origin.x = (bounds.size.width * index) + PADDING;
+    //pageFrame.origin.y += 64;
     return pageFrame;
 }
 
